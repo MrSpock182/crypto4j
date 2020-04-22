@@ -20,7 +20,7 @@ public class DecryptionAsymmetric implements Decryption {
     private final String type;
     private final String pathKey;
 
-    public DecryptionAsymmetric(String utf, String pathKey, String type) {
+    public DecryptionAsymmetric(String utf, String type, String pathKey) {
         this.utf = utf;
         this.type = type;
         this.pathKey = pathKey;

@@ -16,7 +16,7 @@ public class GenerateAsymmetricKey implements GenerateKey {
     private final String publicPath;
     private final String privatePath;
 
-    private GenerateAsymmetricKey(String type, String path, Integer keySize) {
+    public GenerateAsymmetricKey(String type, String path, Integer keySize) {
         this.type = type;
         this.keySize = keySize;
         this.publicPath = path + "/public.key";

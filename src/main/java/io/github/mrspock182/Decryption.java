@@ -1,6 +1,6 @@
 package io.github.mrspock182;
 
-import br.com.studiotrek.crypto4j.exception.CryptographyException;
+import io.github.mrspock182.exception.CryptographyException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
