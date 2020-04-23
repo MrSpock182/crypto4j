@@ -35,6 +35,11 @@ Crypto4j is a java library for encrypt and decrypt values with Asymmetric and Sy
 compile 'io.github.mrspock182:crypto4j:1.0.1'
 ```
 
+### Gradle Kotlin
+```gradle kotlin
+implementation("io.github.mrspock182:crypto4j:1.0.0")
+```
+
 ### Scala SBT
 ```scala
 libraryDependencies += "io.github.mrspock182" % "crypto4j" % "1.0.1"
@@ -43,6 +48,25 @@ libraryDependencies += "io.github.mrspock182" % "crypto4j" % "1.0.1"
 ### Leiningen
 ```leiningen
 [io.github.mrspock182/crypto4j "1.0.1"]
+```
+
+### Maven Central Badge
+```maven central badge
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.mrspock182/crypto4j.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.mrspock182%22%20AND%20a:%22crypto4j%22)
+```
+
+### PURL
+```purl
+pkg:maven/io.github.mrspock182/crypto4j@1.0.0
+```
+
+### Bazel
+```bazel
+maven_jar(
+    name = "crypto4j",
+    artifact = "io.github.mrspock182:crypto4j:1.0.0",
+    sha1 = "2252948eefb8ad5c547ee741a85e5865d9ef0383",
+)
 ```
 
 Obs: The version 1.0.0 have a problem with Asymmetric keys
