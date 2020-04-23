@@ -20,7 +20,7 @@ compile 'io.github.mrspock182:crypto4j:1.0.1'
 
 ### Gradle Kotlin
 ```gradle kotlin
-implementation("io.github.mrspock182:crypto4j:1.0.0")
+implementation("io.github.mrspock182:crypto4j:1.0.1")
 ```
 
 ### Scala SBT
@@ -57,14 +57,14 @@ libraryDependencies += "io.github.mrspock182" % "crypto4j" % "1.0.1"
 
 ### PURL
 ```purl
-pkg:maven/io.github.mrspock182/crypto4j@1.0.0
+pkg:maven/io.github.mrspock182/crypto4j@1.0.1
 ```
 
 ### Bazel
 ```bazel
 maven_jar(
     name = "crypto4j",
-    artifact = "io.github.mrspock182:crypto4j:1.0.0",
+    artifact = "io.github.mrspock182:crypto4j:1.0.1",
     sha1 = "2252948eefb8ad5c547ee741a85e5865d9ef0383",
 )
 ```
