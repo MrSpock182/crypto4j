@@ -13,23 +13,6 @@ Crypto4j is a java library for encrypt and decrypt values with Asymmetric and Sy
 </dependency>
 ```
 
-### Apache Buildr
-```apache buildr
-'io.github.mrspock182:crypto4j:jar:1.0.1'
-```
-
-### Apache Ivy
-```apache ivy
-<dependency org="io.github.mrspock182" name="crypto4j" rev="1.0.1" />
-```
-
-### Groovy Grape
-```Groovy Grape
-@Grapes( 
-@Grab(group='io.github.mrspock182', module='crypto4j', version='1.0.1') 
-)
-```
-
 ### Gradle/Grails
 ```gradle
 compile 'io.github.mrspock182:crypto4j:1.0.1'
@@ -43,6 +26,23 @@ implementation("io.github.mrspock182:crypto4j:1.0.0")
 ### Scala SBT
 ```scala
 libraryDependencies += "io.github.mrspock182" % "crypto4j" % "1.0.1"
+```
+
+### Groovy Grape
+```Groovy Grape
+@Grapes( 
+@Grab(group='io.github.mrspock182', module='crypto4j', version='1.0.1') 
+)
+```
+
+### Apache Buildr
+```apache buildr
+'io.github.mrspock182:crypto4j:jar:1.0.1'
+```
+
+### Apache Ivy
+```apache ivy
+<dependency org="io.github.mrspock182" name="crypto4j" rev="1.0.1" />
 ```
 
 ### Leiningen
