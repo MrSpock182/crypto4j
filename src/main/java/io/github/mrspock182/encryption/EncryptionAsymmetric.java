@@ -88,7 +88,8 @@ public class EncryptionAsymmetric implements Encryption {
 
     private String baseEncrypt(String value) throws CryptographyException {
         byte[] cipherText;
-        try (ObjectInputStream privateStream = new ObjectInputStream(new FileInputStream(pathKey))) {
+        try (ObjectInputStream privateStream =
+                     new ObjectInputStream(new FileInputStream(pathKey))) {
             final PublicKey key = (PublicKey) privateStream.readObject();
             final Cipher cipher = Cipher.getInstance(type);
             cipher.init(Cipher.ENCRYPT_MODE, key);

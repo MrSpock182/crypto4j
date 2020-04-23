@@ -11,13 +11,13 @@ import java.security.KeyPairGenerator;
 
 public class GenerateAsymmetricKey implements GenerateKey {
 
-    private Integer keysize;
+    private Integer keySize;
     private String type;
     private String publicPath;
     private String privatePath;
 
-    public GenerateAsymmetricKey(String type, String path, Integer keysize) {
-        this.keysize = keysize;
+    public GenerateAsymmetricKey(String type, String path, Integer keySize) {
+        this.keySize = keySize;
         this.type = type;
         this.publicPath = path + "/public.key";
         this.privatePath = path + "/private.key";
@@ -27,7 +27,7 @@ public class GenerateAsymmetricKey implements GenerateKey {
     public void generate() throws CryptographyException {
         try {
             final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(type);
-            keyGen.initialize(keysize);
+            keyGen.initialize(keySize);
             final KeyPair key = keyGen.generateKeyPair();
 
             publicKey(key);
