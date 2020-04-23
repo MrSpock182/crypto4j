@@ -11,14 +11,14 @@ import java.security.KeyPairGenerator;
 
 public class GenerateAsymmetricKey implements GenerateKey {
 
-    private final String type;
-    private final Integer keySize;
-    private final String publicPath;
-    private final String privatePath;
+    private Integer keysize;
+    private String type;
+    private String publicPath;
+    private String privatePath;
 
-    public GenerateAsymmetricKey(String type, String path, Integer keySize) {
+    public GenerateAsymmetricKey(String type, String path, Integer keysize) {
+        this.keysize = keysize;
         this.type = type;
-        this.keySize = keySize;
         this.publicPath = path + "/public.key";
         this.privatePath = path + "/private.key";
     }
@@ -27,7 +27,7 @@ public class GenerateAsymmetricKey implements GenerateKey {
     public void generate() throws CryptographyException {
         try {
             final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(type);
-            keyGen.initialize(keySize);
+            keyGen.initialize(keysize);
             final KeyPair key = keyGen.generateKeyPair();
 
             publicKey(key);
@@ -39,22 +39,30 @@ public class GenerateAsymmetricKey implements GenerateKey {
 
     private void publicKey(final KeyPair key) throws Exception {
         File publicFileKey = new File(publicPath);
-        checkingFile(key, publicFileKey);
+
+        if (!publicFileKey.exists()) {
+            if (publicFileKey.getParentFile() != null) {
+                publicFileKey.getParentFile().mkdirs();
+            }
+
+            if (publicFileKey.createNewFile()) {
+                try (ObjectOutputStream publicOutputStream = new ObjectOutputStream(new FileOutputStream(publicFileKey))) {
+                    publicOutputStream.writeObject(key.getPublic());
+                }
+            }
+        }
     }
 
     private void privateKey(final KeyPair key) throws Exception {
         File privateFileKey = new File(privatePath);
-        checkingFile(key, privateFileKey);
-    }
 
-    private void checkingFile(final KeyPair key, final File fileKey) throws Exception {
-        if (!fileKey.exists()) {
-            if (fileKey.getParentFile() != null) {
-                fileKey.getParentFile().mkdirs();
+        if (!privateFileKey.exists()) {
+            if (privateFileKey.getParentFile() != null) {
+                privateFileKey.getParentFile().mkdirs();
             }
 
-            if (fileKey.createNewFile()) {
-                try (ObjectOutputStream privateOutputStream = new ObjectOutputStream(new FileOutputStream(fileKey))) {
+            if (privateFileKey.createNewFile()) {
+                try (ObjectOutputStream privateOutputStream = new ObjectOutputStream(new FileOutputStream(privateFileKey))) {
                     privateOutputStream.writeObject(key.getPrivate());
                 }
             }
