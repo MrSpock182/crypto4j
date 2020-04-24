@@ -1,5 +1,7 @@
 package io.github.mrspock182.encryption;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.mrspock182.Encryption;
 import io.github.mrspock182.exception.CryptographyException;
 
@@ -12,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Optional;
 
 import static javax.crypto.Cipher.ENCRYPT_MODE;
 
@@ -21,6 +24,7 @@ public class EncryptionSymmetrical implements Encryption {
     private final String type;
     private final String cipher;
     private final String cryptKey;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public EncryptionSymmetrical(String type, String utf, String cryptKey, String cipher) {
         this.utf = utf;
@@ -87,6 +91,19 @@ public class EncryptionSymmetrical implements Encryption {
             return baseEncrypt(data);
         }
         return null;
+    }
+
+    @Override
+    public <T> String encrypt(T t) throws CryptographyException {
+        try {
+            if (t != null) {
+                String json = mapper.writeValueAsString(t);
+                return encrypt(json);
+            }
+            return null;
+        } catch (JsonProcessingException ex) {
+            throw new CryptographyException(ex);
+        }
     }
 
     private String baseEncrypt(String value) throws CryptographyException {

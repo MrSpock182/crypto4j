@@ -21,4 +21,6 @@ public interface Decryption {
     LocalDate toLocalDate(String value, String dateFormatter) throws CryptographyException;
 
     LocalDateTime toLocalDateTime(String value, String dateFormatter) throws CryptographyException;
+
+    <T> T toObject(String value, Class<T> var2) throws CryptographyException;
 }
