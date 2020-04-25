@@ -1,5 +1,7 @@
 package io.github.mrspock182.decryption;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.mrspock182.Decryption;
 import io.github.mrspock182.exception.CryptographyException;
 
@@ -19,6 +21,7 @@ public class DecryptionSymmetrical implements Decryption {
     private final String type;
     private final String cipher;
     private final String cryptKey;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public DecryptionSymmetrical(String type, String utf, String cryptKey, String cipher) {
         this.utf = utf;
@@ -89,14 +92,27 @@ public class DecryptionSymmetrical implements Decryption {
         return null;
     }
 
+    @Override
+    public <T> T toObject(String value, Class<T> var2) throws CryptographyException {
+        try {
+            if(value != null) {
+                return mapper.readValue(toString(value), var2);
+            }
+        } catch (JsonProcessingException ex) {
+            throw new CryptographyException(ex);
+        }
+
+        return null;
+    }
+
     private String baseEncrypt(String text) throws CryptographyException {
         try {
             if (!text.isEmpty()) {
                 byte[] bytes = Base64.getUrlDecoder().decode(text);
-                Cipher decripta = Cipher.getInstance(this.cipher);
+                Cipher cipher = Cipher.getInstance(this.cipher);
                 SecretKey key = new SecretKeySpec(cryptKey.getBytes(utf), this.type);
-                decripta.init(Cipher.DECRYPT_MODE, key);
-                return new String(decripta.doFinal(bytes), utf);
+                cipher.init(Cipher.DECRYPT_MODE, key);
+                return new String(cipher.doFinal(bytes), utf);
             }
             return "";
         } catch (Exception ex) {

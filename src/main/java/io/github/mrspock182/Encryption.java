@@ -21,4 +21,6 @@ public interface Encryption {
     String encrypt(LocalDate value, String dateFormatter) throws CryptographyException;
 
     String encrypt(LocalDateTime value, String dateFormatter) throws CryptographyException;
+
+    <T> String encrypt(T t) throws CryptographyException;
 }

@@ -1,5 +1,7 @@
 package io.github.mrspock182.encryption;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.mrspock182.Encryption;
 import io.github.mrspock182.exception.CryptographyException;
 
@@ -13,12 +15,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Optional;
 
 public class EncryptionAsymmetric implements Encryption {
 
     private final String utf;
     private final String type;
     private final String pathKey;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public EncryptionAsymmetric(String utf, String type, String pathKey) {
         this.utf = utf;
@@ -84,6 +88,19 @@ public class EncryptionAsymmetric implements Encryption {
             return baseEncrypt(data);
         }
         return null;
+    }
+
+    @Override
+    public <T> String encrypt(T t) throws CryptographyException {
+        try {
+            if (t != null) {
+                String json = mapper.writeValueAsString(t);
+                return encrypt(json);
+            }
+            return null;
+        } catch (JsonProcessingException ex) {
+            throw new CryptographyException(ex);
+        }
     }
 
     private String baseEncrypt(String value) throws CryptographyException {

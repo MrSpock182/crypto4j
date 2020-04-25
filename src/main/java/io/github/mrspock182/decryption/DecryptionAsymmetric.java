@@ -1,5 +1,7 @@
 package io.github.mrspock182.decryption;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.mrspock182.Decryption;
 import io.github.mrspock182.exception.CryptographyException;
 
@@ -19,6 +21,7 @@ public class DecryptionAsymmetric implements Decryption {
     private final String utf;
     private final String type;
     private final String pathKey;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public DecryptionAsymmetric(String utf, String type, String pathKey) {
         this.utf = utf;
@@ -88,16 +91,29 @@ public class DecryptionAsymmetric implements Decryption {
         return null;
     }
 
+    @Override
+    public <T> T toObject(String value, Class<T> var2) throws CryptographyException {
+        try {
+            if(value != null) {
+                return mapper.readValue(toString(value), var2);
+            }
+        } catch (JsonProcessingException ex) {
+            throw new CryptographyException(ex);
+        }
+
+        return null;
+    }
+
     private String baseEncrypt(String text) throws CryptographyException {
         try (ObjectInputStream publicStream = new ObjectInputStream(new FileInputStream(pathKey))) {
             if (!text.isEmpty()) {
-                byte[] dectyptedText = Base64.getUrlDecoder().decode(text);
+                byte[] value = Base64.getUrlDecoder().decode(text);
 
                 final PrivateKey key = (PrivateKey) publicStream.readObject();
 
                 final Cipher cipher = Cipher.getInstance(type);
                 cipher.init(Cipher.DECRYPT_MODE, key);
-                return new String(cipher.doFinal(dectyptedText), utf);
+                return new String(cipher.doFinal(value), utf);
             }
 
             return "";
